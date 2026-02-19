@@ -42,3 +42,16 @@ A plain-English prototype built with Next.js App Router and local data only.
 
 - This tool gives guidance only and links users to official City and NSW pages for confirmation.
 - No backend is used. Answers and analytics are stored in `localStorage`.
+## Cloudflare deployment
+
+Yes — this project is suited to **Cloudflare Pages**.
+
+Because it uses local content files and browser localStorage (no backend), the simplest path is static hosting on Pages.
+
+1. Build command: `npm run build`
+2. Output directory: `out`
+3. Node version: 18+
+
+This repo is configured in `next.config.mjs` with `output: "export"` and static params for journey routes, so Pages can serve it as a static site.
+
+

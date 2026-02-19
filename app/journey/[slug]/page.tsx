@@ -4,6 +4,10 @@ import { Layout } from "@/components/Layout";
 import { journeys } from "@/data/content";
 import { IsoIcon } from "@/components/Illustrations";
 
+export function generateStaticParams() {
+  return journeys.map((journey) => ({ slug: journey.slug }));
+}
+
 export default function JourneyIntro({ params }: { params: { slug: string } }) {
   const journey = journeys.find((j) => j.slug === params.slug);
   if (!journey) return notFound();

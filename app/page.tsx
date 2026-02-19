@@ -17,29 +17,35 @@ const CategoryIllustration = ({ category }: { category: string }) => {
   );
 };
 
-const categoryTag = (id: string) => (id === "home" ? "Residents" : id === "business" ? "Businesses" : "After approval");
+const outcomes: Record<string, string> = {
+  home: "Find likely pathway and document checklist for home works.",
+  business: "Understand likely approvals for fitout, use, signage and trading.",
+  after: "Work out modification, certificate or lookup next actions."
+};
 
 export default function Home() {
   return (
     <Layout>
       <section className="rounded-token border border-slate-200 bg-white p-8 shadow-sm">
-        <p className="text-xs font-semibold uppercase tracking-[0.14em] text-secondary">City of Sydney</p>
-        <h1 className="mt-1 text-4xl font-semibold tracking-tight">Planning Pathway Guide</h1>
-        <p className="mt-3 max-w-3xl text-slate-700">Find your likely planning pathway, what to prepare, and who to contact next. This guide is a starting point only and links you to official City and NSW resources for confirmation.</p>
+        <h1 className="text-4xl font-semibold tracking-tight">Start your planning journey with confidence</h1>
+        <p className="mt-3 max-w-3xl text-slate-700">This tool helps you identify your likely planning pathway, what to prepare next, and who to contact. It is designed for residents, businesses and applicants who need a practical starting point.</p>
+        <div className="mt-5 grid gap-3 md:grid-cols-3">
+          <div className="rounded-xl border border-slate-200 bg-slate-50 p-3 text-sm"><strong>Step 1:</strong> Choose a pathway category.</div>
+          <div className="rounded-xl border border-slate-200 bg-slate-50 p-3 text-sm"><strong>Step 2:</strong> Pick the closest common scenario.</div>
+          <div className="rounded-xl border border-slate-200 bg-slate-50 p-3 text-sm"><strong>Step 3:</strong> Get a tailored checklist and official links.</div>
+        </div>
       </section>
 
       <section className="mt-8" aria-label="Category hubs">
-        <div className="flex items-center justify-between">
-          <h2 className="text-2xl font-semibold">Choose your starting point</h2>
-          <span className="rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-xs font-medium text-slate-700">3 guided pathways</span>
-        </div>
+        <h2 className="text-2xl font-semibold">Choose your starting point</h2>
+        <p className="mt-2 text-slate-700">Each pathway is designed around common customer needs and typical decision points.</p>
         <div className="mt-4 grid gap-4 md:grid-cols-3">
           {categories.map((cat) => (
             <Link key={cat.id} href={`/${cat.slug}`} className="rounded-token border border-slate-200 bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:border-primary hover:shadow-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary">
-              <div className="mb-2 inline-flex rounded-full border border-slate-300 px-3 py-1 text-xs font-medium text-slate-700">{categoryTag(cat.id)}</div>
               <CategoryIllustration category={cat.id} />
               <h3 className="mt-2 text-xl font-semibold">{cat.title}</h3>
               <p className="mt-2 text-sm text-slate-700">{cat.description}</p>
+              <p className="mt-3 text-xs font-medium text-slate-600">{outcomes[cat.id]}</p>
             </Link>
           ))}
         </div>

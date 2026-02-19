@@ -49,7 +49,7 @@ Yes — this project is suited to **Cloudflare Pages**.
 Because it uses local content files and browser localStorage (no backend), the simplest path is static hosting on Pages.
 
 1. Build command: `npm run build`
-2. Output directory: `out`
+2. Output directory: `dist` (this repo copies Next export output from `out/` to `dist/` during `npm run build` for Cloudflare compatibility)
 3. Node version: 18+
 
 This repo is configured in `next.config.mjs` with `output: "export"` and static params for journey routes, so Pages can serve it as a static site.

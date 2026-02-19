@@ -6,32 +6,32 @@ export const categories: Category[] = [
   { id: "after", slug: "after-approval", title: "After approval", description: "Changes after consent, start of works and lookup tasks." }
 ];
 
-const mkTiles = (a: string, b: string, c: string) => [
-  { id: "1", title: a, description: "Common scenario" },
-  { id: "2", title: b, description: "Common scenario" },
-  { id: "3", title: c, description: "Common scenario" }
-];
+const mkTiles = (...labels: string[]) => labels.map((label, index) => ({
+  id: String(index + 1),
+  title: label,
+  description: `Common scenario: ${label.toLowerCase()}.`
+}));
 
 export const journeys: Journey[] = [
   { id: "1", categoryId: "home", slug: "build-new", title: "Build something new", description: "House, multi dwelling or mixed-use new build.", illustrationSvgComponentName: "IsoBuild", exampleTiles: mkTiles("New house", "Multi dwelling", "Mixed-use building") },
-  { id: "2", categoryId: "home", slug: "renovate-inside", title: "Renovate inside", description: "Kitchen, bathroom or other internal works.", illustrationSvgComponentName: "IsoRenovate", exampleTiles: mkTiles("Kitchen", "Bathroom", "Internal layout") },
-  { id: "3", categoryId: "home", slug: "extension", title: "Extension or add a level", description: "Expand your existing building footprint.", illustrationSvgComponentName: "IsoExtension", exampleTiles: mkTiles("Rear extension", "Side extension", "Add a level") },
-  { id: "4", categoryId: "home", slug: "granny-flat", title: "Granny flat / secondary dwelling", description: "Create a separate secondary residence.", illustrationSvgComponentName: "IsoGranny", exampleTiles: mkTiles("Detached", "Attached", "Garage conversion") },
-  { id: "5", categoryId: "home", slug: "deck-pergola-carport", title: "Deck, pergola, carport or crossover", description: "Outdoor structures and vehicle access works.", illustrationSvgComponentName: "IsoDeck", exampleTiles: mkTiles("Deck", "Pergola", "Carport") },
-  { id: "6", categoryId: "home", slug: "pool-spa", title: "Install a pool or spa", description: "Swimming pool and associated fencing or paving.", illustrationSvgComponentName: "IsoPool", exampleTiles: mkTiles("In-ground pool", "Spa", "Pool fence") },
-  { id: "7", categoryId: "home", slug: "demolition", title: "Demolition", description: "Partial or full demolition work.", illustrationSvgComponentName: "IsoDemo", exampleTiles: mkTiles("Partial demolition", "Full demolition", "Outbuilding removal") },
-  { id: "8", categoryId: "home", slug: "change-exterior", title: "Change the exterior", description: "Windows, facade, awnings or balconies.", illustrationSvgComponentName: "IsoExterior", exampleTiles: mkTiles("New windows", "New awning", "Balcony change") },
-  { id: "9", categoryId: "home", slug: "heritage-works", title: "Heritage works", description: "Works in heritage buildings or areas.", illustrationSvgComponentName: "IsoHeritage", exampleTiles: mkTiles("Repair facade", "Alter roof", "Internal heritage fabric") },
-  { id: "10", categoryId: "business", slug: "fitout", title: "Business fitout", description: "Fit out a shop, cafe, bar or restaurant.", illustrationSvgComponentName: "IsoFitout", exampleTiles: mkTiles("Cafe fitout", "Restaurant kitchen", "Retail display") },
+  { id: "2", categoryId: "home", slug: "renovate-inside", title: "Renovate inside", description: "Kitchen, bathroom or other internal works.", illustrationSvgComponentName: "IsoRenovate", exampleTiles: mkTiles("Kitchen upgrade", "Bathroom renovation", "Internal layout change") },
+  { id: "3", categoryId: "home", slug: "extension", title: "Extension or add a level", description: "Expand your existing building footprint.", illustrationSvgComponentName: "IsoExtension", exampleTiles: mkTiles("Rear extension", "Side extension", "Add a second level") },
+  { id: "4", categoryId: "home", slug: "granny-flat", title: "Granny flat / secondary dwelling", description: "Create a separate secondary residence.", illustrationSvgComponentName: "IsoGranny", exampleTiles: mkTiles("Detached granny flat", "Attached secondary dwelling", "Garage conversion") },
+  { id: "5", categoryId: "home", slug: "deck-pergola-carport", title: "Deck, pergola, carport or crossover", description: "Outdoor structures and vehicle access works.", illustrationSvgComponentName: "IsoDeck", exampleTiles: mkTiles("New deck", "Pergola cover", "Carport and driveway crossover") },
+  { id: "6", categoryId: "home", slug: "pool-spa", title: "Install a pool or spa", description: "Swimming pool and associated fencing or paving.", illustrationSvgComponentName: "IsoPool", exampleTiles: mkTiles("In-ground pool", "Plunge pool", "Spa and pool fence") },
+  { id: "7", categoryId: "home", slug: "demolition", title: "Demolition", description: "Partial or full demolition work.", illustrationSvgComponentName: "IsoDemo", exampleTiles: mkTiles("Partial demolition", "Full knockdown", "Outbuilding removal") },
+  { id: "8", categoryId: "home", slug: "change-exterior", title: "Change the exterior", description: "Windows, facade, awnings or balconies.", illustrationSvgComponentName: "IsoExterior", exampleTiles: mkTiles("New windows", "Awning replacement", "Balcony alteration") },
+  { id: "9", categoryId: "home", slug: "heritage-works", title: "Heritage works", description: "Works in heritage buildings or areas.", illustrationSvgComponentName: "IsoHeritage", exampleTiles: mkTiles("Repair heritage facade", "Roof restoration", "Internal heritage fabric changes") },
+  { id: "10", categoryId: "business", slug: "fitout", title: "Business fitout", description: "Fit out a shop, cafe, bar or restaurant.", illustrationSvgComponentName: "IsoFitout", exampleTiles: mkTiles("Cafe fitout", "Restaurant kitchen", "Retail interior refresh") },
   { id: "11", categoryId: "business", slug: "change-use", title: "Change of use", description: "Change what a premises is used for.", illustrationSvgComponentName: "IsoUse", exampleTiles: mkTiles("Office to cafe", "Retail to medical", "Warehouse to studio") },
-  { id: "12", categoryId: "business", slug: "outdoor-dining", title: "Outdoor dining / footpath use", description: "Tables, barriers, heaters and hours outdoors.", illustrationSvgComponentName: "IsoOutdoor", exampleTiles: mkTiles("Footpath tables", "Roadside lane", "Outdoor service bar") },
-  { id: "13", categoryId: "business", slug: "signage", title: "Signage", description: "New, larger, illuminated or fascia signage.", illustrationSvgComponentName: "IsoSign", exampleTiles: mkTiles("Fascia sign", "Projecting sign", "Illuminated sign") },
-  { id: "14", categoryId: "business", slug: "trading-hours-pom", title: "Trading hours or Plan of Management", description: "Change operating hours or update POM.", illustrationSvgComponentName: "IsoHours", exampleTiles: mkTiles("Later closing", "New POM", "Patron management") },
-  { id: "15", categoryId: "after", slug: "modify-approved", title: "Change an approved DA (s4.55)", description: "Modify consented plans or conditions.", illustrationSvgComponentName: "IsoModify", exampleTiles: mkTiles("Layout tweak", "Facade tweak", "Condition update") },
-  { id: "16", categoryId: "after", slug: "start-building", title: "Start building", description: "Understand construction certificate steps.", illustrationSvgComponentName: "IsoBuildStart", exampleTiles: mkTiles("Need CC", "Certifier contact", "Before construction") },
-  { id: "17", categoryId: "after", slug: "lookup", title: "Lookup exhibition or approvals", description: "Search for applications and statuses.", illustrationSvgComponentName: "IsoLookup", exampleTiles: mkTiles("Search address", "Search DA number", "Track exhibition") },
-  { id: "18", categoryId: "after", slug: "talk-to-someone", title: "Talk to someone first", description: "Get early advice before preparing plans.", illustrationSvgComponentName: "IsoTalk", exampleTiles: mkTiles("Not sure where to start", "Need duty planner", "Need simple checklist") },
-  { id: "19", categoryId: "home", slug: "strata-apartment", title: "Apartment or strata works", description: "Common property and approval pathways.", illustrationSvgComponentName: "IsoStrata", exampleTiles: mkTiles("Bathroom works", "Balcony changes", "Common property") }
+  { id: "12", categoryId: "business", slug: "outdoor-dining", title: "Outdoor dining / footpath use", description: "Tables, barriers, heaters and hours outdoors.", illustrationSvgComponentName: "IsoOutdoor", exampleTiles: mkTiles("Footpath tables", "Roadside lane dining", "Heaters and barriers") },
+  { id: "13", categoryId: "business", slug: "signage", title: "Signage", description: "New, larger, illuminated or fascia signage.", illustrationSvgComponentName: "IsoSign", exampleTiles: mkTiles("Fascia sign", "Projecting sign", "Illuminated signage") },
+  { id: "14", categoryId: "business", slug: "trading-hours-pom", title: "Trading hours or Plan of Management", description: "Change operating hours or update POM.", illustrationSvgComponentName: "IsoHours", exampleTiles: mkTiles("Later closing time", "Update Plan of Management", "Patron management changes") },
+  { id: "15", categoryId: "after", slug: "modify-approved", title: "Change an approved DA (s4.55)", description: "Modify consented plans or conditions.", illustrationSvgComponentName: "IsoModify", exampleTiles: mkTiles("Layout tweak", "Facade revision", "Condition wording change") },
+  { id: "16", categoryId: "after", slug: "start-building", title: "Start building", description: "Understand construction certificate steps.", illustrationSvgComponentName: "IsoBuildStart", exampleTiles: mkTiles("Need a construction certificate", "Choosing a certifier", "Pre-construction checks") },
+  { id: "17", categoryId: "after", slug: "lookup", title: "Lookup exhibition or approvals", description: "Search for applications and statuses.", illustrationSvgComponentName: "IsoLookup", exampleTiles: mkTiles("Search by address", "Search DA number", "Track exhibition") },
+  { id: "18", categoryId: "after", slug: "talk-to-someone", title: "Talk to someone first", description: "Get early advice before preparing plans.", illustrationSvgComponentName: "IsoTalk", exampleTiles: mkTiles("Not sure where to start", "Need duty planner advice", "Need a simple starter checklist") },
+  { id: "19", categoryId: "home", slug: "strata-apartment", title: "Apartment or strata works", description: "Common property and approval pathways.", illustrationSvgComponentName: "IsoStrata", exampleTiles: mkTiles("Bathroom works", "Balcony changes", "Common property impacts") }
 ];
 
 export const baseQuestions: Question[] = [

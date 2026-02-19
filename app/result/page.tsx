@@ -17,12 +17,14 @@ const PATHWAY_LABELS: Record<string, string> = {
 };
 
 export default function ResultPage() {
-  const data = typeof window !== "undefined" ? JSON.parse(localStorage.getItem("ppg_latest_result") || '{"journey":"talk-to-someone","answers":{}}') : { journey: "talk-to-someone", answers: {} };
+  const data = typeof window !== "undefined"
+    ? JSON.parse(localStorage.getItem("ppg_latest_result") || '{"journey":"talk-to-someone","answers":{},"selectedScenario":"","selectedScenarioLabel":""}')
+    : { journey: "talk-to-someone", answers: {}, selectedScenario: "", selectedScenarioLabel: "" };
   const output = useMemo(() => runRules(data.journey, data.answers), [data.journey, JSON.stringify(data.answers)]);
   if (typeof window !== "undefined") logEvent("result_viewed", { journey: data.journey, pathways: output.likelyPathways.join(",") });
 
   const share = async () => {
-    const text = `Planning Pathway Guide summary\nJourney: ${data.journey}\nLikely pathway: ${output.likelyPathways.map((p: string) => PATHWAY_LABELS[p] ?? p).join(", ")}\nNext step: ${output.nextSteps[0] ?? "Confirm details"}`;
+    const text = `Planning Pathway Guide summary\nJourney: ${data.journey}\nScenario: ${data.selectedScenarioLabel || "Not selected"}\nLikely pathway: ${output.likelyPathways.map((p: string) => PATHWAY_LABELS[p] ?? p).join(", ")}\nNext step: ${output.nextSteps[0] ?? "Confirm details"}`;
     await navigator.clipboard.writeText(text);
     logEvent("summary_shared", { journey: data.journey });
   };
@@ -30,6 +32,7 @@ export default function ResultPage() {
   return (
     <Layout>
       <h1 className="text-3xl font-semibold">Your likely pathway</h1>
+      {data.selectedScenarioLabel && <p className="mt-2 inline-flex rounded-full border border-secondary/40 bg-secondary/10 px-3 py-1 text-xs text-slate-700">Scenario: {data.selectedScenarioLabel}</p>}
       <section className="mt-5 rounded-token border border-slate-200 bg-white p-6 shadow-sm">
         <p className="text-sm">Confidence: <strong className="capitalize">{output.confidence}</strong></p>
         <ul className="mt-2 list-disc pl-6">

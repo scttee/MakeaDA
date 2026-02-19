@@ -2,39 +2,47 @@ import React from "react";
 
 type Accent = "primary" | "secondary";
 
-const BaseIso = ({ children, label }: { children: React.ReactNode; label: string }) => (
-  <svg viewBox="0 0 160 110" role="img" aria-label={label} className="h-32 w-full">
-    <polygon points="20,68 80,36 140,68 80,100" fill="white" stroke="black" strokeWidth="2" />
-    <polygon points="20,68 20,42 80,10 80,36" fill="white" stroke="black" strokeWidth="2" />
-    <polygon points="140,68 140,42 80,10 80,36" fill="white" stroke="black" strokeWidth="2" />
-    {children}
-  </svg>
-);
+const BaseIso = ({ children, label, accent }: { children: React.ReactNode; label: string; accent: Accent }) => {
+  const accentColor = `var(--color-${accent})`;
+
+  return (
+    <svg viewBox="0 0 210 150" role="img" aria-label={label} className="h-36 w-full">
+      <polygon points="26,106 106,66 186,106 106,146" fill="#f8fafc" stroke="black" strokeWidth="1.4" />
+      <polygon points="26,106 26,42 106,2 106,66" fill="white" stroke="black" strokeWidth="1.4" />
+      <polygon points="186,106 186,42 106,2 106,66" fill="white" stroke="black" strokeWidth="1.4" />
+      <line x1="106" y1="2" x2="106" y2="66" stroke="black" strokeWidth="1.4" />
+      <line x1="42" y1="112" x2="110" y2="78" stroke="#d1d5db" strokeWidth="1.2" />
+      <line x1="110" y1="78" x2="170" y2="108" stroke="#d1d5db" strokeWidth="1.2" />
+      <circle cx="46" cy="38" r="3" fill={accentColor} />
+      {children}
+    </svg>
+  );
+};
 
 export const JourneyIllustration = ({ label, name, accent = "primary" }: { label: string; name: string; accent?: Accent }) => {
   const fill = `var(--color-${accent})`;
 
   const featureByName: Record<string, React.ReactNode> = {
-    IsoBuild: <rect x="65" y="44" width="28" height="24" fill={fill} stroke="black" strokeWidth="2" />,
-    IsoRenovate: <path d="M60 64 L84 40 L98 54 L74 78 Z" fill={fill} stroke="black" strokeWidth="2" />,
-    IsoExtension: <><rect x="54" y="52" width="28" height="18" fill={fill} stroke="black" strokeWidth="2" /><rect x="86" y="52" width="18" height="12" fill="white" stroke="black" strokeWidth="2" /></>,
-    IsoGranny: <><rect x="56" y="48" width="20" height="18" fill={fill} stroke="black" strokeWidth="2" /><rect x="84" y="55" width="16" height="14" fill="white" stroke="black" strokeWidth="2" /></>,
-    IsoDeck: <><line x1="48" y1="78" x2="112" y2="46" stroke="black" strokeWidth="2" /><circle cx="58" cy="70" r="5" fill={fill} /></>,
-    IsoPool: <ellipse cx="80" cy="62" rx="28" ry="14" fill={fill} stroke="black" strokeWidth="2" />,
-    IsoDemo: <><path d="M58 66 L70 50 L84 58 L74 72 Z" fill={fill} stroke="black" strokeWidth="2" /><line x1="90" y1="46" x2="104" y2="60" stroke="black" strokeWidth="2" /></>,
-    IsoExterior: <><rect x="56" y="48" width="48" height="20" fill="white" stroke="black" strokeWidth="2" /><rect x="68" y="54" width="24" height="10" fill={fill} stroke="black" strokeWidth="1.5" /></>,
-    IsoHeritage: <><rect x="54" y="48" width="52" height="22" fill="white" stroke="black" strokeWidth="2" /><circle cx="80" cy="59" r="6" fill={fill} stroke="black" strokeWidth="2" /></>,
-    IsoFitout: <><rect x="58" y="48" width="44" height="20" fill={fill} stroke="black" strokeWidth="2" /><line x1="58" y1="58" x2="102" y2="58" stroke="black" strokeWidth="1.5" /></>,
-    IsoUse: <><path d="M56 64 h48" stroke="black" strokeWidth="2" /><path d="M92 54 l12 10 -12 10" stroke="black" strokeWidth="2" fill="none" /><circle cx="66" cy="64" r="6" fill={fill} /></>,
-    IsoOutdoor: <><rect x="56" y="62" width="26" height="10" fill={fill} stroke="black" strokeWidth="2" /><rect x="86" y="58" width="18" height="8" fill="white" stroke="black" strokeWidth="2" /></>,
-    IsoSign: <><rect x="56" y="40" width="48" height="16" fill={fill} stroke="black" strokeWidth="2" /><line x1="80" y1="56" x2="80" y2="76" stroke="black" strokeWidth="2" /></>,
-    IsoHours: <><circle cx="80" cy="58" r="14" fill="white" stroke="black" strokeWidth="2" /><line x1="80" y1="58" x2="80" y2="50" stroke={fill} strokeWidth="2" /><line x1="80" y1="58" x2="88" y2="58" stroke={fill} strokeWidth="2" /></>,
-    IsoModify: <><rect x="56" y="50" width="44" height="18" fill="white" stroke="black" strokeWidth="2" /><path d="M70 58 h24" stroke={fill} strokeWidth="2" /><path d="M70 63 h18" stroke={fill} strokeWidth="2" /></>,
-    IsoBuildStart: <><path d="M56 68 l20-20 10 10 18-18" stroke={fill} strokeWidth="3" fill="none" /><circle cx="104" cy="40" r="4" fill={fill} /></>,
-    IsoLookup: <><circle cx="74" cy="56" r="10" fill="white" stroke="black" strokeWidth="2" /><line x1="82" y1="64" x2="94" y2="76" stroke="black" strokeWidth="2" /><circle cx="74" cy="56" r="4" fill={fill} /></>,
-    IsoTalk: <><rect x="56" y="48" width="40" height="18" fill="white" stroke="black" strokeWidth="2" /><path d="M68 66 l-4 8 12-8" fill="white" stroke="black" strokeWidth="2" /><circle cx="70" cy="57" r="2" fill={fill} /><circle cx="78" cy="57" r="2" fill={fill} /></>,
-    IsoStrata: <><rect x="56" y="44" width="18" height="26" fill={fill} stroke="black" strokeWidth="2" /><rect x="78" y="50" width="18" height="20" fill="white" stroke="black" strokeWidth="2" /><rect x="100" y="56" width="18" height="14" fill="white" stroke="black" strokeWidth="2" /></>
+    IsoBuild: <><rect x="66" y="72" width="48" height="34" fill="white" stroke="black" strokeWidth="1.4" /><polygon points="66,72 90,56 138,56 114,72" fill="#f8fafc" stroke="black" strokeWidth="1.4" /><rect x="82" y="82" width="14" height="12" fill={fill} stroke="black" strokeWidth="1.2" /></>,
+    IsoRenovate: <><rect x="72" y="75" width="30" height="22" fill="white" stroke="black" strokeWidth="1.4" /><line x1="84" y1="76" x2="84" y2="98" stroke="black" strokeWidth="1.2" /><path d="M116 69 L134 79 L118 95 L100 85 Z" fill={fill} stroke="black" strokeWidth="1.4" /></>,
+    IsoExtension: <><rect x="58" y="74" width="44" height="30" fill="white" stroke="black" strokeWidth="1.4" /><rect x="106" y="82" width="28" height="20" fill={fill} stroke="black" strokeWidth="1.4" /></>,
+    IsoGranny: <><rect x="54" y="78" width="36" height="24" fill="white" stroke="black" strokeWidth="1.4" /><rect x="98" y="82" width="36" height="24" fill={fill} stroke="black" strokeWidth="1.4" /></>,
+    IsoDeck: <><line x1="52" y1="110" x2="132" y2="70" stroke="black" strokeWidth="1.4" /><line x1="60" y1="114" x2="140" y2="74" stroke="black" strokeWidth="1.4" /><circle cx="78" cy="106" r="5" fill={fill} stroke="black" strokeWidth="1.2" /></>,
+    IsoPool: <><ellipse cx="106" cy="100" rx="44" ry="18" fill={fill} stroke="black" strokeWidth="1.4" /><ellipse cx="106" cy="100" rx="32" ry="12" fill="white" stroke="black" strokeWidth="1" /></>,
+    IsoDemo: <><path d="M70 102 L86 74 L102 90 L88 116 Z" fill={fill} stroke="black" strokeWidth="1.4" /><line x1="116" y1="72" x2="136" y2="92" stroke="black" strokeWidth="1.8" /><line x1="136" y1="72" x2="116" y2="92" stroke="black" strokeWidth="1.8" /></>,
+    IsoExterior: <><rect x="64" y="76" width="84" height="28" fill="white" stroke="black" strokeWidth="1.4" /><rect x="78" y="84" width="24" height="12" fill={fill} stroke="black" strokeWidth="1.2" /><rect x="112" y="84" width="24" height="12" fill="#dbeafe" stroke="black" strokeWidth="1.2" /></>,
+    IsoHeritage: <><rect x="64" y="72" width="78" height="34" fill="white" stroke="black" strokeWidth="1.4" /><polygon points="64,72 103,56 142,72" fill="#f8fafc" stroke="black" strokeWidth="1.4" /><circle cx="103" cy="89" r="8" fill={fill} stroke="black" strokeWidth="1.2" /></>,
+    IsoFitout: <><rect x="68" y="74" width="76" height="30" fill="white" stroke="black" strokeWidth="1.4" /><line x1="68" y1="88" x2="144" y2="88" stroke="black" strokeWidth="1.2" /><rect x="96" y="80" width="20" height="8" fill={fill} stroke="black" strokeWidth="1" /></>,
+    IsoUse: <><path d="M64 100 H120" stroke="black" strokeWidth="1.8" /><path d="M108 88 L124 100 L108 112" stroke="black" strokeWidth="1.8" fill="none" /><rect x="74" y="90" width="16" height="12" fill={fill} stroke="black" strokeWidth="1.2" /></>,
+    IsoOutdoor: <><rect x="66" y="94" width="32" height="14" fill={fill} stroke="black" strokeWidth="1.4" /><rect x="106" y="88" width="28" height="12" fill="white" stroke="black" strokeWidth="1.4" /><line x1="120" y1="88" x2="120" y2="78" stroke="black" strokeWidth="1.2" /></>,
+    IsoSign: <><rect x="70" y="60" width="72" height="20" fill={fill} stroke="black" strokeWidth="1.4" /><line x1="106" y1="80" x2="106" y2="114" stroke="black" strokeWidth="1.6" /><circle cx="80" cy="70" r="2" fill="white" /><circle cx="132" cy="70" r="2" fill="white" /></>,
+    IsoHours: <><circle cx="106" cy="92" r="20" fill="white" stroke="black" strokeWidth="1.6" /><line x1="106" y1="92" x2="106" y2="80" stroke={fill} strokeWidth="2" /><line x1="106" y1="92" x2="118" y2="92" stroke={fill} strokeWidth="2" /><rect x="132" y="86" width="16" height="8" fill={fill} stroke="black" strokeWidth="1" /></>,
+    IsoModify: <><rect x="66" y="74" width="76" height="30" fill="white" stroke="black" strokeWidth="1.4" /><path d="M80 88 H126" stroke={fill} strokeWidth="2" /><path d="M80 95 H114" stroke={fill} strokeWidth="2" /><circle cx="74" cy="84" r="3" fill={fill} /></>,
+    IsoBuildStart: <><path d="M66 112 L92 86 L106 98 L136 68" stroke={fill} strokeWidth="3" fill="none" /><circle cx="136" cy="68" r="4" fill={fill} /><rect x="56" y="72" width="10" height="34" fill="white" stroke="black" strokeWidth="1.2" /></>,
+    IsoLookup: <><circle cx="94" cy="92" r="16" fill="white" stroke="black" strokeWidth="1.6" /><line x1="106" y1="104" x2="124" y2="122" stroke="black" strokeWidth="2" /><circle cx="94" cy="92" r="6" fill={fill} stroke="black" strokeWidth="1.2" /></>,
+    IsoTalk: <><rect x="66" y="76" width="58" height="24" fill="white" stroke="black" strokeWidth="1.4" /><path d="M82 100 L76 112 L92 100" fill="white" stroke="black" strokeWidth="1.4" /><circle cx="84" cy="88" r="2.2" fill={fill} /><circle cx="94" cy="88" r="2.2" fill={fill} /><circle cx="104" cy="88" r="2.2" fill={fill} /></>,
+    IsoStrata: <><rect x="66" y="64" width="20" height="44" fill={fill} stroke="black" strokeWidth="1.4" /><rect x="90" y="72" width="20" height="36" fill="white" stroke="black" strokeWidth="1.4" /><rect x="114" y="80" width="20" height="28" fill="#dbeafe" stroke="black" strokeWidth="1.4" /></>
   };
 
-  return <BaseIso label={label}>{featureByName[name] ?? featureByName.IsoBuild}</BaseIso>;
+  return <BaseIso label={label} accent={accent}>{featureByName[name] ?? featureByName.IsoBuild}</BaseIso>;
 };

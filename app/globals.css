@@ -26,3 +26,8 @@ h1, h2, h3 { line-height: 1.2; }
   outline: 2px solid var(--color-primary);
   outline-offset: 2px;
 }
+
+::selection {
+  background: #d9f3ea;
+  color: #111111;
+}

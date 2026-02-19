@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import JourneyQuestionsClient from "@/components/JourneyQuestionsClient";
 import { journeys } from "@/data/content";
 
@@ -6,5 +7,9 @@ export function generateStaticParams() {
 }
 
 export default function QuestionsPage({ params }: { params: { slug: string } }) {
-  return <JourneyQuestionsClient slug={params.slug} />;
+  return (
+    <Suspense fallback={<div className="p-8 text-sm text-slate-600">Loading questions…</div>}>
+      <JourneyQuestionsClient slug={params.slug} />
+    </Suspense>
+  );
 }

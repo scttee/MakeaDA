@@ -33,24 +33,27 @@ const groupCount = (events: AnalyticsEvent[], eventName: string, field: string):
       map[key] = (map[key] ?? 0) + 1;
     });
 
-  return Object.entries(map).sort((a, b) => b[1] - a[1]);
+  return (Object.entries(map) as [string, number][]).sort((a, b) => b[1] - a[1]);
+};
+
+const countNotSureByQuestion = (events: AnalyticsEvent[]): [string, number][] => {
+  const counts: Record<string, number> = {};
+
+  events
+    .filter((event) => event.name === "question_answered" && String(event.payload?.value).includes("Not sure"))
+    .forEach((event) => {
+      const questionId = event.payload?.questionId ?? "unknown";
+      counts[questionId] = (counts[questionId] ?? 0) + 1;
+    });
+
+  return (Object.entries(counts) as [string, number][]).sort((a, b) => b[1] - a[1]);
 };
 
 export default function AdminAnalytics() {
   const events = readEvents();
 
   const topJourneys = useMemo(() => groupCount(events, "result_viewed", "journey"), [events]);
-  const topNotSure: Record<string, number> = useMemo(
-    () =>
-      events
-        .filter((event) => event.name === "question_answered" && String(event.payload?.value).includes("Not sure"))
-        .reduce<Record<string, number>>((acc, event) => {
-          const questionId = event.payload?.questionId ?? "unknown";
-          acc[questionId] = (acc[questionId] ?? 0) + 1;
-          return acc;
-        }, {}),
-    [events],
-  );
+  const topNotSureEntries = useMemo(() => countNotSureByQuestion(events), [events]);
   const topPathways = useMemo(() => groupCount(events, "result_viewed", "pathways"), [events]);
   const dropoff = useMemo(() => groupCount(events, "question_answered", "questionId"), [events]);
 
@@ -63,7 +66,7 @@ export default function AdminAnalytics() {
       </section>
       <section className="mt-5">
         <h2 className="font-semibold">Top "Not sure" questions</h2>
-        <ul>{Object.entries(topNotSure).map(([k, v]) => <li key={k}>{k}: {v}</li>)}</ul>
+        <ul>{topNotSureEntries.map(([k, v]) => <li key={k}>{k}: {v}</li>)}</ul>
       </section>
       <section className="mt-5">
         <h2 className="font-semibold">Top resulting pathways</h2>

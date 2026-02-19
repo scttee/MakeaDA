@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-bg: #ffffff;
+  --color-text: #111111;
+  --color-primary: #0B6E4F;
+  --color-secondary: #0B4F9F;
+  --radius: 16px;
+}
+
+body { font-family: Arial, sans-serif; }

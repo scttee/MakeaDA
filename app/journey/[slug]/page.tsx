@@ -8,17 +8,40 @@ export function generateStaticParams() {
   return journeys.map((journey) => ({ slug: journey.slug }));
 }
 
-const exampleMeaning = (title: string) => {
+const exampleMeaning = (slug: string, title: string) => {
   const key = title.toLowerCase();
-  if (key.includes("rear extension")) return "Adding a new room at the back of an existing house.";
-  if (key.includes("side extension")) return "Widening a building into side setback space.";
-  if (key.includes("add a second level") || key.includes("add a level")) return "Adding an upper storey over part or all of the dwelling.";
-  if (key.includes("kitchen")) return "Replacing cabinets/appliances and updating internal layout.";
-  if (key.includes("bathroom")) return "Bathroom renovation with waterproofing and internal finishes.";
-  if (key.includes("outdoor") || key.includes("footpath") || key.includes("roadside")) return "Tables/chairs in public space with pedestrian clearance considered.";
-  if (key.includes("sign")) return "New or updated business sign on facade or projecting from it.";
-  if (key.includes("garage conversion")) return "Converting existing garage space into habitable secondary dwelling area.";
-  return "A common version of this pathway to help you choose the closest match.";
+  if (key.includes("rear extension")) return "Adding a new family room at the rear of an existing house.";
+  if (key.includes("side extension")) return "Widening the building with a new side room and updated roofline.";
+  if (key.includes("add a second level") || key.includes("add a level")) return "Adding bedrooms and a bathroom as a new upper storey.";
+  if (key.includes("kitchen")) return "Replacing kitchen layout, cabinetry, appliances and internal services.";
+  if (key.includes("bathroom")) return "Renovating a bathroom with new fixtures and waterproofing.";
+  if (key.includes("outdoor") || key.includes("footpath") || key.includes("roadside")) return "Setting tables/chairs outside with pedestrian clearance and accessibility maintained.";
+  if (key.includes("sign")) return "Installing a new fascia or projecting sign for your business frontage.";
+  if (key.includes("garage conversion")) return "Converting an existing garage into a habitable room within a secondary dwelling.";
+
+  const fallbackByJourney: Record<string, string> = {
+    "build-new": "Building a new house on a vacant lot or replacing an older dwelling with a new one.",
+    "granny-flat": "Building a detached granny flat behind an existing home for family use.",
+    "deck-pergola-carport": "Adding a backyard deck with steps and a lightweight pergola cover.",
+    "pool-spa": "Installing a small in-ground pool with compliant fencing and paving.",
+    demolition: "Demolishing an old shed or removing part of a building before new works.",
+    "change-exterior": "Replacing front windows, updating facade cladding, or altering an awning.",
+    "heritage-works": "Repairing heritage facade elements while retaining significant character features.",
+    fitout: "New shop fitout with internal partitions, counters, and service upgrades.",
+    "change-use": "Changing a tenancy from office use to a food premises.",
+    "outdoor-dining": "Applying for footpath dining area with barriers and outdoor furniture.",
+    signage: "Updating existing business signage to a larger or illuminated format.",
+    "trading-hours-pom": "Extending evening trading hours and updating your Plan of Management.",
+    "modify-approved": "Making minor design changes after DA approval through s4.55.",
+    "start-building": "Moving from approved plans to construction certificate and commencement steps.",
+    lookup: "Checking an address or DA number in ePlanning to view application status.",
+    "talk-to-someone": "Booking early advice when scope, approvals, or documents are still unclear.",
+    "strata-apartment": "Apartment bathroom upgrade where strata/common property considerations may apply.",
+    "renovate-inside": "Internal non-structural renovation such as kitchen/bathroom and flooring updates.",
+    extension: "Extending an existing home to add more internal living area."
+  };
+
+  return fallbackByJourney[slug] ?? "Typical example for this pathway based on common City enquiries.";
 };
 
 export default function JourneyIntro({ params }: { params: { slug: string } }) {
@@ -48,7 +71,7 @@ export default function JourneyIntro({ params }: { params: { slug: string } }) {
               >
                 <p className="text-[11px] font-semibold uppercase tracking-wide text-secondary">Common example</p>
                 <h3 className="mt-1 font-semibold text-slate-900">{tile.title}</h3>
-                <p className="mt-2 text-xs text-slate-700">{exampleMeaning(tile.title)}</p>
+                <p className="mt-2 text-xs text-slate-700">{exampleMeaning(journey.slug, tile.title)}</p>
               </Link>
             ))}
           </div>

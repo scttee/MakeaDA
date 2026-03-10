@@ -6,6 +6,10 @@ import { ConfirmDetails } from "@/components/ConfirmDetails";
 import { runRules } from "@/lib/rules";
 import { logEvent } from "@/lib/client";
 
+
+const SOEE_DISABLED = ["lookup", "talk-to-someone", "start-building"];
+const SOEE_ENABLED = ["extension", "fitout", "signage"];
+
 const PATHWAY_LABELS: Record<string, string> = {
   DA: "Development Application (DA) pathway",
   possibleExemptOrComplying: "Possible exempt or complying pathway",
@@ -53,6 +57,14 @@ export default function ResultPage() {
           </div>
         ))}
       </section>
+
+      {(SOEE_ENABLED.includes(data.journey) && !SOEE_DISABLED.includes(data.journey)) && (
+      <section className="mt-6 rounded-token border border-primary/30 bg-primary/5 p-6 shadow-sm">
+        <h2 className="text-xl font-semibold">Build your SoEE draft</h2>
+        <p className="mt-1 text-sm text-slate-700">Answer a few more questions to generate a first-pass draft and checklist.</p>
+        <a href={`/soee/${data.journey}`} className="mt-3 inline-block rounded-token bg-primary px-4 py-2 text-white">Build a draft Statement of Environmental Effects</a>
+      </section>
+      )}
 
       <section className="mt-6 rounded-token border border-slate-200 bg-white p-6 shadow-sm">
         <h2 className="text-xl font-semibold">People to contact</h2>
